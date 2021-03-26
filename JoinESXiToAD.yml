@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  vars:
+    vcenter_hostname: stage1-w-vc01.stage1.ci.demo.tieto.com
+    vcenter_username: administrator@vsphere.local
+    vcenter_password: VMware123!45
+    esxi_hostname: r640n06.stage1.ci.demo.tieto.com
+  tasks:
+    - name: Join AD domain
+      vmware_host_active_directory:
+        hostname: '{{ vcenter_hostname }}'
+        username: '{{ vcenter_username }}'
+        password: '{{ vcenter_password }}'
+        esxi_hostname: '{{ esxi_hostname }}'
+        ad_domain: tesla.ad.carel.fi
+        ad_user: rakshata
+        ad_password: Password4u
+        ad_state: present
+        validate_certs: no
+      delegate_to: localhost
